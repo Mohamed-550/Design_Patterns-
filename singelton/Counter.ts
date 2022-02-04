@@ -1,17 +1,18 @@
 export class Counter {
+    public count: number = 0;
+    AddOne() {
+        this.count++;
+    }
 
-    public count = 0;
-    private static instance = new Counter();
-
-    static GetInstance() {
+    static instance: Counter = new Counter();
+    static GetInstance(): Counter {
+        // if*2 => protection against multi-threading
         if (Counter.instance == null) {
-            Counter.instance = new Counter();
+            if (Counter.instance == null) {
+                Counter.instance = new Counter();
+            }
         } else {
             return Counter.instance;
         }
     }
-    AddOne() {
-        this.count++;
-    }
 }
-
